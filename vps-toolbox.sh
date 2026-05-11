@@ -7,11 +7,11 @@ set -euo pipefail
 SCRIPT_VERSION="1.0.0"
 
 C_RESET='\033[0m'
-C_RED='\033[31m'
-C_GREEN='\033[32m'
-C_YELLOW='\033[33m'
-C_BLUE='\033[34m'
-C_CYAN='\033[36m'
+C_RED='\033[1;31m'
+C_GREEN='\033[1;32m'
+C_YELLOW='\033[1;33m'
+C_BLUE='\033[1;34m'
+C_CYAN='\033[1;36m'
 C_DIM='\033[2m'
 
 color() { printf "%b%s%b" "$1" "$2" "$C_RESET"; }
@@ -111,61 +111,24 @@ running_text() {
 menu() {
   clear 2>/dev/null || true
   line
-  color "$C_CYAN" " VPS Toolbox"; echo
-  color "$C_DIM" " 常用 VPS 脚本集合 | v${SCRIPT_VERSION}"; echo
+  color "$C_CYAN" " VPS Toolbox"; color "$C_DIM" "  v${SCRIPT_VERSION}"; echo
+  color "$C_GREEN" " 常用 VPS 脚本集合"; echo
   line
-  printf "安装状态: "; status_text; echo
-  printf "运行状态: "; running_text; echo
+  printf "状态: "; status_text; printf " | "; running_text; echo
 
-  section "系统重装 / 初始化"
-  echo "  1) DD Debian 13 - bin456789 reinstall"
-  echo "  2) DD Debian 13 - InstallNET 备用"
-  echo "  3) 新机初始化（通用安全版）"
-  echo "  4) 安装常用基础包"
-  echo "  5) 启用 systemd-timesyncd 时间同步"
+  color "$C_YELLOW" "[1] 系统 / 初始化"; echo "    1 DD-bin456789   2 DD-InstallNET   3 初始化   4 基础包   5 时间同步"
+  color "$C_YELLOW" "[2] 体检 / 跑分"; echo "        6 NodeQuality    7 Check.Place   8 YABS     9 bench   10 LemonBench"
+  color "$C_YELLOW" "[3] IP / 解锁"; echo "         11 IP.Check     12 unlock.media 13 Region  14 OpenAI"
+  color "$C_YELLOW" "[4] 网络 / 路由"; echo "       15 speedtest    16 latency      17 tcping  18 NextTrace 19 mtr"
+  color "$C_YELLOW" "[5] 服务 / 面板"; echo "       20 Realm        21 Docker       22 1Panel"
+  color "$C_YELLOW" "[6] 安全 / 节点"; echo "       23 BBR-32M      24 BBR-64M      25 UFW     26 Fail2ban"
+  echo "                         27 AnyTLS       28 SS-Rust      29 Xray"
 
-  section "体检 / 跑分"
-  echo "  6) NodeQuality"
-  echo "  7) Check.Place -H"
-  echo "  8) YABS"
-  echo "  9) bench.sh"
-  echo " 10) LemonBench fast"
-
-  section "IP / 解锁"
-  echo " 11) IP.Check.Place"
-  echo " 12) check.unlock.media"
-  echo " 13) RegionRestrictionCheck"
-  echo " 14) OpenAI Checker"
-
-  section "网络 / 路由"
-  echo " 15) 安装 Ookla speedtest 并测速"
-  echo " 16) latency.sh"
-  echo " 17) 安装 tcping"
-  echo " 18) 安装 NextTrace"
-  echo " 19) 安装 mtr"
-
-  section "转发 / 面板 / Docker"
-  echo " 20) Realm"
-  echo " 21) 安装 Docker"
-  echo " 22) 安装 1Panel"
-
-  section "安全 / 优化"
-  echo " 23) BBR 32MB 缓冲"
-  echo " 24) BBR 64MB 缓冲"
-  echo " 25) 安装 UFW 并放行 SSH/80/443"
-  echo " 26) 安装 Fail2ban"
-
-  section "节点脚本"
-  echo " 27) AnyTLS Manager"
-  echo " 28) SS-Rust Manager"
-  echo " 29) Xray Manager"
-
-  section "系统功能"
-  echo "  0) 退出"
+  echo
+  color "$C_GREEN" "0) 退出"; echo
   echo
   read -rp "请选择编号: " choice
 }
-
 BBR_32='cat > /etc/sysctl.d/99-custom.conf << EOF_SYSCTL
 fs.file-max = 6815744
 net.ipv4.tcp_no_metrics_save=1

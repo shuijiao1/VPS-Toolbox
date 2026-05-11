@@ -79,10 +79,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/shuijiao1/VPS-Toolbox/main/vps
 
 脚本采用交互式菜单：
 
-- 青色顶部框
-- 标题 + 版本
-- 安装状态 / 运行状态两行
-- 蓝色分组标题
+- 高亮青色顶部框
+- 标题 + 版本 + 状态压缩展示
+- 黄绿色紧凑分类菜单，减少滚屏
 - 执行前展示命令并要求确认
 
 ## 风险提示
