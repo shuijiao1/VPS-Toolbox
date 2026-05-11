@@ -80,8 +80,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/shuijiao1/VPS-Toolbox/main/vps
 脚本采用交互式菜单：
 
 - 高亮青色顶部框
+- 主菜单只展示 6 个分类，具体脚本放到子菜单
 - 标题 + 版本 + 状态压缩展示
-- 黄绿色紧凑分类菜单，减少滚屏
+- 青色边框、白色标题、黄色分类、紫色子菜单标题
 - 执行前展示命令并要求确认
 
 ## 风险提示

@@ -12,6 +12,8 @@ C_GREEN='\033[1;32m'
 C_YELLOW='\033[1;33m'
 C_BLUE='\033[1;34m'
 C_CYAN='\033[1;36m'
+C_MAGENTA='\033[1;35m'
+C_WHITE='\033[1;37m'
 C_DIM='\033[2m'
 
 color() { printf "%b%s%b" "$1" "$2" "$C_RESET"; }
@@ -108,27 +110,122 @@ running_text() {
   fi
 }
 
-menu() {
+banner() {
   clear 2>/dev/null || true
-  line
-  color "$C_CYAN" " VPS Toolbox"; color "$C_DIM" "  v${SCRIPT_VERSION}"; echo
-  color "$C_GREEN" " 常用 VPS 脚本集合"; echo
-  line
-  printf "状态: "; status_text; printf " | "; running_text; echo
-
-  color "$C_YELLOW" "[1] 系统 / 初始化"; echo "    1 DD-bin456789   2 DD-InstallNET   3 初始化   4 基础包   5 时间同步"
-  color "$C_YELLOW" "[2] 体检 / 跑分"; echo "        6 NodeQuality    7 Check.Place   8 YABS     9 bench   10 LemonBench"
-  color "$C_YELLOW" "[3] IP / 解锁"; echo "         11 IP.Check     12 unlock.media 13 Region  14 OpenAI"
-  color "$C_YELLOW" "[4] 网络 / 路由"; echo "       15 speedtest    16 latency      17 tcping  18 NextTrace 19 mtr"
-  color "$C_YELLOW" "[5] 服务 / 面板"; echo "       20 Realm        21 Docker       22 1Panel"
-  color "$C_YELLOW" "[6] 安全 / 节点"; echo "       23 BBR-32M      24 BBR-64M      25 UFW     26 Fail2ban"
-  echo "                         27 AnyTLS       28 SS-Rust      29 Xray"
-
   echo
-  color "$C_GREEN" "0) 退出"; echo
+  color "$C_CYAN" "╭──────────────────────────────────────╮"; echo
+  color "$C_CYAN" "│"; color "$C_WHITE" "  VPS Toolbox"; color "$C_DIM" "  v${SCRIPT_VERSION}"; printf "%16s" ""; color "$C_CYAN" "│"; echo
+  color "$C_CYAN" "│"; color "$C_GREEN" "  常用 VPS 脚本集合"; printf "%18s" ""; color "$C_CYAN" "│"; echo
+  color "$C_CYAN" "╰──────────────────────────────────────╯"; echo
+  printf "  "; color "$C_DIM" "状态"; printf "  "; status_text; printf "  "; color "$C_DIM" "·"; printf "  "; running_text; echo
+  echo
+}
+
+main_menu() {
+  banner
+  color "$C_YELLOW" "  1"; echo "  系统重装 / 初始化"
+  color "$C_YELLOW" "  2"; echo "  体检 / 跑分"
+  color "$C_YELLOW" "  3"; echo "  IP / 解锁检测"
+  color "$C_YELLOW" "  4"; echo "  网络 / 路由工具"
+  color "$C_YELLOW" "  5"; echo "  服务 / 面板 / Docker"
+  color "$C_YELLOW" "  6"; echo "  安全优化 / 节点脚本"
+  echo
+  color "$C_GREEN" "  0"; echo "  退出"
+  echo
+  read -rp "请选择分类: " choice
+}
+
+submenu_header() {
+  local title="$1"
+  banner
+  color "$C_MAGENTA" "  $title"; echo
+  color "$C_DIM" "  ────────────────────────────────────"; echo
+}
+
+menu_system() {
+  submenu_header "系统重装 / 初始化"
+  echo "  1) DD Debian 13 - bin456789"
+  echo "  2) DD Debian 13 - InstallNET 备用"
+  echo "  3) 新机初始化（通用安全版）"
+  echo "  4) 安装常用基础包"
+  echo "  5) 启用时间同步"
+  echo
+  echo "  b) 返回"
   echo
   read -rp "请选择编号: " choice
+  case "$choice" in b|B) return 0 ;; 1|2|3|4|5) run_choice "$choice" ;; *) echo "无效编号"; pause ;; esac
 }
+
+menu_bench() {
+  submenu_header "体检 / 跑分"
+  echo "  6) NodeQuality"
+  echo "  7) Check.Place -H"
+  echo "  8) YABS"
+  echo "  9) bench.sh"
+  echo " 10) LemonBench fast"
+  echo
+  echo "  b) 返回"
+  echo
+  read -rp "请选择编号: " choice
+  case "$choice" in b|B) return 0 ;; 6|7|8|9|10) run_choice "$choice" ;; *) echo "无效编号"; pause ;; esac
+}
+
+menu_ip() {
+  submenu_header "IP / 解锁检测"
+  echo " 11) IP.Check.Place"
+  echo " 12) check.unlock.media"
+  echo " 13) RegionRestrictionCheck"
+  echo " 14) OpenAI Checker"
+  echo
+  echo "  b) 返回"
+  echo
+  read -rp "请选择编号: " choice
+  case "$choice" in b|B) return 0 ;; 11|12|13|14) run_choice "$choice" ;; *) echo "无效编号"; pause ;; esac
+}
+
+menu_network() {
+  submenu_header "网络 / 路由工具"
+  echo " 15) Ookla speedtest"
+  echo " 16) latency.sh"
+  echo " 17) tcping"
+  echo " 18) NextTrace"
+  echo " 19) mtr"
+  echo
+  echo "  b) 返回"
+  echo
+  read -rp "请选择编号: " choice
+  case "$choice" in b|B) return 0 ;; 15|16|17|18|19) run_choice "$choice" ;; *) echo "无效编号"; pause ;; esac
+}
+
+menu_service() {
+  submenu_header "服务 / 面板 / Docker"
+  echo " 20) Realm"
+  echo " 21) Docker"
+  echo " 22) 1Panel"
+  echo
+  echo "  b) 返回"
+  echo
+  read -rp "请选择编号: " choice
+  case "$choice" in b|B) return 0 ;; 20|21|22) run_choice "$choice" ;; *) echo "无效编号"; pause ;; esac
+}
+
+menu_security() {
+  submenu_header "安全优化 / 节点脚本"
+  echo " 23) BBR 32MB 缓冲"
+  echo " 24) BBR 64MB 缓冲"
+  echo " 25) UFW 放行 SSH / 80 / 443"
+  echo " 26) Fail2ban"
+  echo " 27) AnyTLS Manager"
+  echo " 28) SS-Rust Manager"
+  echo " 29) Xray Manager"
+  echo
+  echo "  b) 返回"
+  echo
+  read -rp "请选择编号: " choice
+  case "$choice" in b|B) return 0 ;; 23|24|25|26|27|28|29) run_choice "$choice" ;; *) echo "无效编号"; pause ;; esac
+}
+
+
 BBR_32='cat > /etc/sysctl.d/99-custom.conf << EOF_SYSCTL
 fs.file-max = 6815744
 net.ipv4.tcp_no_metrics_save=1
@@ -188,9 +285,8 @@ systemctl enable --now cron || true
 echo '初始化完成。SSH 端口：${port}'"
 }
 
-while true; do
-  menu
-  case "${choice}" in
+run_choice() {
+  case "${1}" in
     1) run_dd_bin456789 ;;
     2) run_dd_installnet ;;
     3) run_init ;;
@@ -220,8 +316,21 @@ while true; do
     27) confirm_and_run "bash <(curl -Ls https://anytls.shuijiao.de)" ;;
     28) confirm_and_run "bash <(curl -Ls https://ss.shuijiao.de)" ;;
     29) confirm_and_run "bash <(curl -Ls https://xray.shuijiao.de)" ;;
-    0) exit 0 ;;
-    *) echo "无效编号" ;;
   esac
+ 
   pause
+}
+
+while true; do
+  main_menu
+  case "${choice}" in
+    1) menu_system ;;
+    2) menu_bench ;;
+    3) menu_ip ;;
+    4) menu_network ;;
+    5) menu_service ;;
+    6) menu_security ;;
+    0) exit 0 ;;
+    *) echo "无效分类"; pause ;;
+  esac
 done
