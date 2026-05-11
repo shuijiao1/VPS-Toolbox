@@ -109,7 +109,7 @@ running_text() {
 }
 
 menu() {
-  clear || true
+  clear 2>/dev/null || true
   line
   color "$C_CYAN" " VPS Toolbox"; echo
   color "$C_DIM" " 常用 VPS 脚本集合 | v${SCRIPT_VERSION}"; echo
