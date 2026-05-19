@@ -4,7 +4,7 @@ set -euo pipefail
 # VPS Toolbox: interactive script collection for Debian/Ubuntu servers.
 # Third-party scripts run as root. Review commands before confirming.
 
-SCRIPT_VERSION="0.1.2"
+SCRIPT_VERSION="0.1.3"
 
 C_RESET='\033[0m'
 C_RED='\033[1;31m'
