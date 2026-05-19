@@ -1,92 +1,54 @@
-# VPS Toolbox
+# VPS-Toolbox
 
-常用 VPS 脚本集合，默认面向 Debian / Ubuntu root 环境。
+![Shell](https://img.shields.io/badge/Shell-Bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white)
+![Version](https://img.shields.io/badge/version-v0.1.2-blue?style=flat-square)
 
-> 第三方一键脚本会以 root 权限执行。请先确认来源和风险，重要机器建议先读脚本再运行。
+**中文** | [English](README.en.md)
 
-## 一键运行
+**常用 VPS 脚本集合。**
+
+> 面向 Debian / Ubuntu root 环境，优先使用自己的短链一键运行。
+
+---
+
+## 🎯 核心特性
+
+- 系统重装 / 初始化入口
+- 跑分、IP 质量、解锁和路由测试
+- 转发、Docker、安全优化常用脚本
+- 执行前展示命令并确认
+
+---
+
+## 🚀 快速开始
 
 ```bash
 bash <(curl -Ls https://vps.shuijiao.de)
 ```
 
-GitHub Raw 备用：
+备用方式：
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/shuijiao1/VPS-Toolbox/main/vps-toolbox.sh)
 ```
 
-## 功能分类
+---
 
-### 系统重装 / 初始化
+## ⚙️ 版本与发布
 
-- DD Debian 13 - bin456789 reinstall
-- DD Debian 13 - InstallNET 备用
-- 新机初始化（通用安全版）
-- 安装常用基础包
-- 启用 systemd-timesyncd 时间同步
+- 当前版本：`v0.1.2`
+- 更新记录见 [`CHANGELOG.md`](CHANGELOG.md)
+- GitHub Release 会根据 `CHANGELOG.md` 自动生成说明
+- 维护者发布新版本可使用：
 
-说明：
+```bash
+./release.sh <version> "更新说明"
+```
 
-- DD 端口由用户输入，直接回车会随机生成端口。
-- DD root 密码由用户交互输入，不在脚本中内置。
-- 初始化只做通用基础配置和 SSH 端口修改，不下载私人密钥。
-- 初始化 SSH 端口由用户输入，直接回车会随机生成端口。
+---
 
-### 体检 / 跑分
+## ⚠️ 注意事项
 
-- NodeQuality
-- Check.Place -H
-- YABS
-- bench.sh
-- LemonBench fast
-
-### IP / 解锁
-
-- IP.Check.Place
-- check.unlock.media
-- RegionRestrictionCheck
-- OpenAI Checker
-
-### 网络 / 路由
-
-- Ookla speedtest
-- latency.sh
-- tcping
-- NextTrace
-- mtr
-
-### 转发 / 面板 / Docker
-
-- Realm
-- Docker
-- 1Panel
-
-### 安全 / 优化
-
-- BBR 32MB 缓冲
-- BBR 64MB 缓冲
-- UFW：交互输入当前 SSH 端口并放行 SSH / 80 / 443
-- Fail2ban
-
-### 节点脚本
-
-- AnyTLS Manager
-- SS-Rust Manager
-- Xray Manager
-
-## 菜单风格
-
-脚本采用交互式菜单：
-
-- 高亮青色顶部框
-- 主菜单只展示 6 个分类，具体脚本放到子菜单
-- 标题 + 版本 + 状态压缩展示
-- 青色边框、白色标题、黄色分类、紫色子菜单标题
-- 执行前展示命令并要求确认
-
-## 风险提示
-
-- DD / 重装脚本会清空系统，执行前确认 IP、端口、密码、控制台/救援模式可用。
-- 防火墙、SSH、内核、BBR、转发规则改动前，建议保留一个现有 SSH 会话不断开。
-- 公共版脚本不包含私人密钥、固定私人密码或个人初始化逻辑。
+- 请在可信 VPS 上以 root 执行。
+- 涉及防火墙、SSH、重装、转发规则等操作前，建议保留一个现有 SSH 会话不断开。
+- 脚本默认只维护公开通用配置，不内置私人密钥或私人密码。
