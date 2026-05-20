@@ -26,12 +26,6 @@
 bash <(curl -Ls https://vps.shuijiao.de)
 ```
 
-Fallback:
-
-```bash
-bash <(curl -Ls https://raw.githubusercontent.com/shuijiao1/VPS-Toolbox/main/vps-toolbox.sh)
-```
-
 ---
 
 ## ⚙️ Versioning and Releases

@@ -26,12 +26,6 @@
 bash <(curl -Ls https://vps.shuijiao.de)
 ```
 
-备用方式：
-
-```bash
-bash <(curl -Ls https://raw.githubusercontent.com/shuijiao1/VPS-Toolbox/main/vps-toolbox.sh)
-```
-
 ---
 
 ## ⚙️ 版本与发布
